@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Traits\ApiResponser;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class   AuthorController extends Controller
 {
     use ApiResponser;
     /**
@@ -25,18 +26,34 @@ class AuthorController extends Controller
     }
     public function store(Request $request)
     {
+        $rules = [
+            'name' => 'required|max:255|string',
+            'gender' => 'required|max:10|in:male,female',
+            'country' => 'string|max:3'
+        ];
+        $this->validate($request,$rules);
+        $author = Author::create($request->all());
+        return $this->successResponse($author, Response::HTTP_CREATED);
 
     }
     public function show($author)
     {
-
+        $author = Author::findOrFail($author);
+        return $this->successResponse($author);
     }
     public function update(Request $request, $author)
     {
+        $rules = [
+            'name' => 'required|max:255|string',
+            'gender' => 'required|max:10|in:male,female',
+            'country' => 'string|max:3'
+        ];
+        $this->validate($request,$rules);
 
     }
     public function destroy($author)
     {
-
+        $author = Author::destroy($author);
+        return $this->successResponse($author,Response::HTTP_OK);
     }
 }

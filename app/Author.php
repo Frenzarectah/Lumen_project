@@ -12,4 +12,7 @@ class Author extends Model
         'gender',
         'country',
     ];
+    public static function create(array $data) {
+        return static::query()->create($data);
+    }
 }
