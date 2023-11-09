@@ -11,10 +11,21 @@
 |
 */
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookingController;
+
+//AUTHORS
 
 $router->get('/authors', 'AuthorController@index');
-$router->post('/authors','AuthorController@store');
 $router->get('/authors/{author}','AuthorController@show');
+
+//BOOKINGS
+
+$router->get('/bookings', 'BookingController@index');
+$router->get('/bookings/{single_booking}', 'BookingController@show');
+
+$router->post('/authors','AuthorController@store');
+$router->post('/bookings','BookingController@store');
+
 $router->put('/authors/{author}','AuthorController@update');
 $router->patch('/authors/{author}','AuthorController@update');
 $router->delete('/authors/{author}','AuthorController@destroy');
